@@ -3,10 +3,10 @@
 all: libcicc.so libnvcc.so
 
 libcicc.so: cicc.cpp
-	g++ -g -O3 -D__STDC_LIMIT_MACROS -D__STDC_CONSTANT_MACROS -I/opt/llvm-3.0/include -I/opt/cuda/nvvm/include/ -fPIC $< -shared -o $@ -ldl -L/opt/llvm-3.0/lib -Wl,--start-group -lLLVMCore -lLLVMSupport -lLLVMipo -lLLVMipa -lLLVMAnalysis -lLLVMTarget -lLLVMScalarOpts -lLLVMTransformUtils -lLLVMInstCombine -Wl,--end-group -lpthread
+	mpic++ -g -D__STDC_LIMIT_MACROS -D__STDC_CONSTANT_MACROS  -I/usr/local/opt/llvm/include -I/usr/local/cuda/nvvm/include/ -I/usr/local/opt/llvm/include/llvm/IR/ -fPIC $< -shared -o $@ -ldl -L/usr/local/opt/llvm/lib -Wl,--start-group -lLLVMCore -lLLVMSupport -lLLVMipo -lLLVMipa -lLLVMAnalysis -lLLVMTarget -lLLVMScalarOpts -lLLVMTransformUtils -lLLVMInstCombine -Wl,--end-group -lpthread -I/usr/local/opt/python3/lib -L/usr/local/opt/lapack/lib -L/usr/local/opt/openblas/lib -L/usr/local/opt/llvm/lib
 
 libnvcc.so: nvcc.cpp
-	g++ -g -O3 -I/opt/cuda/nvvm/include/ -fPIC $< -shared -o $@ -ldl
+	mpic++ -g -I /usr/local/cuda/nvvm/include/ -fPIC $< -shared -o $@ -ldl
 
 clean:
 	rm -rf libcicc.so libnvcc.so
